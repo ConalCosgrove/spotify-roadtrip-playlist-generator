@@ -26,6 +26,7 @@ module.exports = (router) => {
   });
 
   router.post('/:id', (req, res) => {
+    if (!req.body.userId) res.status(400).send({ error: 'No userId in request body' });
     Group.findByPk(req.params.id).then((group) => {
       User.findByPk(req.body.userId).then((user) => {
         group.addUser(user).then((updatedUser) => {

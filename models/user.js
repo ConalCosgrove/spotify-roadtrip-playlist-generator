@@ -1,5 +1,5 @@
-'use strict';
-module.exports = (sequelize, DataTypes, Deferrable) => {
+
+module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: {
       type: DataTypes.STRING,
@@ -15,21 +15,33 @@ module.exports = (sequelize, DataTypes, Deferrable) => {
       type: DataTypes.STRING,
       unique: true,
       required: true,
-      allowNull: false
+      allowNull: false,
+    },
+    accessToken: {
+      type: DataTypes.STRING,
+      unique: true,
+      required: true,
+      allowNull: false,
+    },
+    refreshToken: {
+      type: DataTypes.STRING,
+      unique: true,
+      required: true,
+      allowNull: false,
     },
     spotifyId: {
       type: DataTypes.STRING,
       unique: true,
       required: true,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   }, {});
-  User.associate = function(models) {
+  User.associate = (models) => {
     User.belongsToMany(models.Group, {
       through: models.Membership,
       as: 'groups',
-      foreignKey: 'userId'
-    })
+      foreignKey: 'userId',
+    });
   };
 
   return User;

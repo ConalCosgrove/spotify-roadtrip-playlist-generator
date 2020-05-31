@@ -1,7 +1,8 @@
 const express = require('express');
-const identify = require('../controllers/identify');
+const refreshToken = require('../controllers/refresh-token');
 
 const router = express.Router();
 router.use(express.json());
-identify(router);
+
+refreshToken(router);
 module.exports = router;

@@ -4,8 +4,21 @@ const { User } = db;
 const { Group } = db;
 module.exports = (router) => {
   router.get('/', (req, res) => {
-    User.findAll().then((data) => {
-      res.send(data);
+    const whereClause = {};
+    if (req.query.spotifyId) whereClause.spotifyId = req.query.spotifyId;
+
+    User.findOne({
+      where: whereClause,
+      include: [{
+        model: Group,
+        as: 'groups',
+      }],
+    }).then((data) => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send([]);
+      }
     });
   });
 
@@ -19,6 +32,7 @@ module.exports = (router) => {
   });
 
   router.post('/', (req, res) => {
+    console.log(req.body);
     User.create(req.body, {
       include: [{
         model: Group,

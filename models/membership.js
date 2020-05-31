@@ -1,5 +1,4 @@
-'use strict';
-module.exports = (sequelize, DataTypes, Deferrable) => {
+module.exports = (sequelize, DataTypes) => {
   const Membership = sequelize.define('Membership', {
     userId: {
       type: DataTypes.INTEGER,
@@ -10,9 +9,9 @@ module.exports = (sequelize, DataTypes, Deferrable) => {
       type: DataTypes.INTEGER,
       required: true,
       allowNull: false,
-    }
+    },
   }, {});
-  Membership.associate = function(models) {
+  Membership.associate = (models) => {
     // associations can be defined here
   };
   return Membership;

@@ -1,15 +1,14 @@
-'use strict';
-module.exports = (sequelize, DataTypes, Deferrable) => {
+module.exports = (sequelize, DataTypes) => {
   const Group = sequelize.define('Group', {
     name: {
       type: DataTypes.STRING,
       required: true,
-      allowNull: false
+      allowNull: false,
     },
   }, {});
-  Group.associate = function(models) {
+  Group.associate = (models) => {
     // associations can be defined here
-    Group.belongsToMany(models.User, {through: models.Membership, as: 'users', foreignKey: 'groupId'});
+    Group.belongsToMany(models.User, { through: models.Membership, as: 'users', foreignKey: 'groupId' });
   };
   return Group;
 };
